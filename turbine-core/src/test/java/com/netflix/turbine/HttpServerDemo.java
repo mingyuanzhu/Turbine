@@ -27,7 +27,7 @@ public class HttpServerDemo {
         RxNetty.createHttpServer(8080, (request, response) -> {
             return Demo.getStream().flatMap(data -> {
                 response.getHeaders().set("Content-Type", "text/event-stream");
-                return response.writeAndFlush(new ServerSentEvent("1", "data", JsonUtility.mapToJson(data)));
+                return response.writeAndFlush(new ServerSentEvent(null, null, JsonUtility.mapToJson(data)));
             });
         }, PipelineConfigurators.sseServerConfigurator()).startAndWait();
     }
